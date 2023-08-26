@@ -1,0 +1,13 @@
+<html>
+    <head>
+        <meta http-equiv="refresh" content="3;url=/tasks/{{ param }}" />
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Waiting</title>
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+    <body>
+        <h1> Please Wait for your Report to Load</h1>
+        <img class="center-fit" src="{{ url_for('static', filename='files/loading.gif') }}">
+    </body>
+</html>
