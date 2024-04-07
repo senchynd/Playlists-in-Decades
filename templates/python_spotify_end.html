@@ -7,15 +7,26 @@
     <h1 class="ex2"> RESULTS</h1>
 <div class="imgbox">
 
+    <!-- Using Jinja2 templating to loop through the path_list and link_dict to display the images and links -->
+    <!-- Having a link to the playlist at the end is required by spotify -->
     {% for path in path_list %}
         <img class="center-fit" src="{{ url_for('static', filename='spotify_instances/' + path + '/final_heading.jpg') }}">
         <img class="center-fit" src="{{ url_for('static', filename='spotify_instances/' + path + '/graph.jpg') }}">
+        <div class="ex1">
+            <a href="{{ link_dict[path] }}">LISTEN ON SPOTIFY</a>
+        </div>
+        <img class="left-fit-small" src="{{ url_for('static', filename='files/spotify_icon.png') }}" alt="Spotify">
     {% endfor %}
 
-    <p class="ex1">Created by Darragh Senchyna, with data provided by:</p>
+    <!-- Link to disconnect from the app, this is required by spotify -->
+    <p class="ex1">To Disconnect from this app, click the following link and remove access from the app 'Playlist in Decades'</p>
+    <a href="https://www.spotify.com/account/apps/">DISCONNECT</a>
+    <p class="ex3">Created by Darragh Senchyna, with data provided by:</p>
     <a href="https://open.spotify.com/">
         <img class="center-fit-small" src="{{ url_for('static', filename='files/spotify_logo.png') }}" alt="Spotify">
     </a>
+
+
 </div>
 </body>
 </html>

@@ -12,8 +12,42 @@ import seaborn as sb
 from datetime import datetime
 from matplotlib.font_manager import fontManager, FontProperties
 
+# Defining some fonts
+big_font = ImageFont.truetype("fonts/GothamBold.ttf", 100, encoding="unic")
+medium_font = ImageFont.truetype("fonts/GothamMedium.ttf", 150, encoding="unic")
+small_font = ImageFont.truetype("fonts/GothamMedium.ttf", 100, encoding="unic")
+tiny_font = ImageFont.truetype("fonts/GothamLight.ttf", 80, encoding="unic")
+
 
 class PlaylistAnalyser:
+    def __init__(self, instance_id, playlist_num):
+        # This prevents graphs from saving on top of each other
+        plt.clf()
+
+        # Adds the user and the playlist as attributes
+        self.instance_id = instance_id
+        self.playlist_num = playlist_num
+
+        # Getting the playlist data as an attribute
+        with open(f"static/spotify_instances/{self.instance_id}/playlist{self.playlist_num}/data.json",
+                  "r+") as instance_file:
+            self.playlist_data = json.load(instance_file)
+
+        # Setting the playlists name as an attribute
+        self.playlist_name = self.playlist_data["name"]
+        self.playlist_description = self.playlist_data["description"]
+        self.link = self.playlist_data["external_urls"]["spotify"]
+
+        # Adding a spotify-esque font and setting seaborn style for the inevitable graphs
+
+        path = "fonts/GothamMedium.ttf"
+        fontManager.addfont(path)
+
+        prop = FontProperties(fname=path)
+
+        sb.set(style="darkgrid", font=prop.get_name())
+
+        self.spot_green = "#1DB954"
     def generate_final_image(self):
         # Essentially, instead of trying to format the python_spotify_end.html file, I have decided to just list a
         # series of images in the HTML file and format those images using pillow, so this is going to be a large image
@@ -48,46 +82,15 @@ class PlaylistAnalyser:
         # We call draw the new image which will have the
         draw = ImageDraw.Draw(result)
 
-        # Defining some fonts
-        big_font = ImageFont.truetype("fonts/GothamBold.ttf", 100, encoding="unic")
-        medium_font = ImageFont.truetype("fonts/GothamMedium.ttf", 150, encoding="unic")
-        small_font = ImageFont.truetype("fonts/GothamMedium.ttf", 100, encoding="unic")
-
         # Adding three bits of text: a playlist number text, a title text and a description text
         draw.text((left, 1100), f"PLAYLIST {self.playlist_num + 1}", fill=(100, 100, 100), font=big_font)
         draw.text((left + width + 150, top + 100), self.playlist_name, fill=(0, 0, 0), font=medium_font)
         draw.text((left + width + 150, top + 300), self.playlist_description, fill=(0, 0, 0), font=small_font)
 
+
+
         # Saving this new image as 'final heading'
         result.save(f"static/spotify_instances/{self.instance_id}/playlist{self.playlist_num}/final_heading.jpg")
-
-    def __init__(self, instance_id, playlist_num):
-        # This prevents graphs from saving on top of each other
-        plt.clf()
-
-        # Adds the user and the playlist as attributes
-        self.instance_id = instance_id
-        self.playlist_num = playlist_num
-
-        # Getting the playlist data as an attribute
-        with open(f"static/spotify_instances/{self.instance_id}/playlist{self.playlist_num}/data.json",
-                  "r+") as instance_file:
-            self.playlist_data = json.load(instance_file)
-
-        # Setting the playlists name as an attribute
-        self.playlist_name = self.playlist_data["name"]
-        self.playlist_description = self.playlist_data["description"]
-
-        # Adding a spotify-esque font and setting seaborn style for the inevitable graphs
-
-        path = "fonts/GothamMedium.ttf"
-        fontManager.addfont(path)
-
-        prop = FontProperties(fname=path)
-
-        sb.set(style="darkgrid", font=prop.get_name())
-
-        self.spot_green = "#1DB954"
 
     def year_graph_from_data(self, date_list):
         # Using our list to create a jpg bar chart
@@ -124,6 +127,8 @@ class PlaylistAnalyser:
         figure.set_xticklabels(figure.get_xticklabels(), rotation=30)
 
         plt.savefig(f"static/spotify_instances/{self.instance_id}/playlist{self.playlist_num}/graph.jpg", dpi=600)
+
+        plt.close()
 
     def create_year_graph(self):
 

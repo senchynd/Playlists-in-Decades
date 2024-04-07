@@ -13,8 +13,8 @@ import requests
 from playlist_analyser import PlaylistAnalyser
 
 # This will need to be replaced with the client id of your spotify app and your server name
-SERVER_NAME = "http://127.0.0.1:5000"
-CLIENT_ID = ""
+SERVER_NAME = "https://replace_with_your_server_name.com"
+CLIENT_ID = "replace_with_your_client_id"
 
 
 def generate_verifier():
@@ -46,7 +46,7 @@ def get_next_instance_id():
     # After 10 instances, the oldest instance (the intance_id with the lowest order number) will be deleted
     # The order number and the random characters are separated by a '-'
 
-    MAX_INSTANCES = 10
+    MAX_INSTANCES = 5
 
     # If there hasn't been an instance yet then we'll pretend there's a 0th instance, so we begin at 1
     if not os.listdir("static/spotify_instances"):
@@ -164,8 +164,6 @@ class SpotifyGrabber:
             print("Network Error When Accessing: https://accounts.spotify.com/authorize ")
 
         # Spotify gives us a url for the user to sign in to their spotify and give us permissions
-
-        # I just open it now because we're testing but I'll have a better way of doing it through the web browser later
 
         return auth.url
 

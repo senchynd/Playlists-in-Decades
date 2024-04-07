@@ -3,6 +3,11 @@
             text-align: center;
         }
 
+        @font-face {
+            font-family: 'Gotham Light';
+            src: url('../fonts/GothamLight.ttf') format('truetype');
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -43,13 +48,41 @@
             margin: auto;
         }
 
+        .left-fit-small {
+            padding: 20 0 0 75px; /* Adjust as needed */
+            max-width: 13%; /* Adjust as needed */
+            max-height: 13vh; /* Adjust as needed */
+            float: left; /* Anchors the image to the left */
+        }
+
         p.ex1 {
             padding-right: 60%;
-            padding-top: 400px;
+            padding-top: 300px;
             padding-bottom: 50px;
         }
+
+        p.ex3 {
+            padding-right: 60%;
+            padding-top: 50px;
+            padding-bottom: 50px;
+        }
+
 
         h1.ex2{
             font: sans-serif;
             padding-top: 100px;
+        }
+
+        .ex1 {
+            text-align: left;
+            padding-left: 50px; /* Adjust as needed */
+            font-family: 'Gotham Light', Arial, sans-serif; /* Gotham Light is now your preferred font */
+            font-size: 15px
+        }
+
+        .ex3 {
+            text-align: left;
+            padding-left: 50px; /* Adjust as needed */
+            font-family: 'Gotham Light', Arial, sans-serif; /* Gotham Light is now your preferred font */
+            font-size: 15px
         }
