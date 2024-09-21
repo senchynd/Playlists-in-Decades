@@ -7,3 +7,5 @@ will be able to use the app unless you request an extension.
 The result is a page with a list of graphs like the following ('Party' is one of my personal playlists):
 
 ![Screenshot 2023-10-16 173401](https://github.com/senchynd/Playlists-in-Decades/assets/102348805/46472cbc-a323-496a-9eb6-dd03e420fd62)
+
+The app can be accessed currently from http://dosenchyna.pythonanywhere.com/. Although, depending on the nature of your playlists, there may be some issues (I still need to bugfix).
